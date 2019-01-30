@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Day_2_Application</string>
+    <string name="action_settings">Settings</string>
+    <string name="tip">please enter your search below</string>
+    <string name="top">Departing From</string>
+    <string name="top2">HKG</string>
+    <string name="middle">PEK</string>
+    <string name="left">Departing</string>
+    <string name="right">Arriving</string>
+    <string name="time">Today(06 May)</string>
+    <string name="button">Go To Summary</string>
+    <string name="detail">go to detail</string>
+    <string name="home">go to home page</string>
+</resources>
