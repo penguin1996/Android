@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TabFragment extends Fragment {
     private Button btn;
@@ -22,6 +23,7 @@ public class TabFragment extends Fragment {
     private ImageView imageView;
 
     int i = 0;
+    int flag = 1;
 
     public static final String TITLE_TAG = "tabTitle";
 
@@ -77,9 +79,15 @@ public class TabFragment extends Fragment {
             super.handleMessage(msg);
             if(msg.arg1 < 100 ) {
                 handler.postDelayed(updateProgress, 1000);
-            }else {
+                ++flag;
+            }
+            else {
                 imageView.setVisibility(imageView.VISIBLE);
                 i = 0;
+            }
+            if(msg.arg1 == 100) {
+                flag = 2;
+                Toast.makeText(getContext(),"Download successful!",Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -105,7 +113,14 @@ public class TabFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                handler.post(updateProgress);
+                if(flag == 1) {
+                    handler.post(updateProgress);
+                }else if(flag == 2) {
+                    Toast.makeText(getContext(),"Downloaded,Don't click it again!",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getContext(),"Downloading,Please waiting!",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -114,9 +129,11 @@ public class TabFragment extends Fragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageView.setVisibility(imageView.INVISIBLE);
-                textView.setText(i+"%");
-                progressBar.setProgress(i);
+                    imageView.setVisibility(imageView.INVISIBLE);
+                    textView.setText(i + "%");
+                    progressBar.setProgress(i);
+                    Toast.makeText(getContext(), "Reset successful,you can download again!", Toast.LENGTH_LONG).show();
+                    flag = 1;
             }
         });
         return view;
